@@ -19,10 +19,30 @@
   var n = 0;
   var countBtn = document.getElementById("count");
 
-  function draw() { countBtn.textContent = n; }
-  document.getElementById("plus").onclick = function () { n++; draw(); };
-  document.getElementById("minus").onclick = function () { if (n > 0) n--; draw(); };
-  document.getElementById("reset").onclick = function () { n = 0; draw(); };
+  var yarn = document.getElementById('yarn');
+  var yThread = yarn.querySelector('.y-thread');
+  var ySvg = yarn.querySelector('svg');
+  var spin = 0;
+
+  function draw() {
+    countBtn.textContent = n;
+    // the ball turns with the rows, and the loose end grows a little
+    ySvg.style.transform = 'rotate(' + spin + 'deg)';
+    yThread.style.height = Math.min(26 + n * 1.6, 54) + 'px';
+  }
+  function knit(step) {
+    if (step < 0 && n === 0) return;
+    n += step;
+    spin += step * 24;
+    yarn.classList.remove('knitting');
+    void yarn.offsetWidth;
+    yarn.classList.add('knitting');
+    draw();
+  }
+  yarn.onclick = function () { knit(1); };
+  document.getElementById("plus").onclick = function () { knit(1); };
+  document.getElementById("minus").onclick = function () { knit(-1); };
+  document.getElementById("reset").onclick = function () { n = 0; spin = 0; draw(); };
   draw();
 
   /* ---------- The way in: press and hold the number ---------- */

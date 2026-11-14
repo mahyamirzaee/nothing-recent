@@ -555,3 +555,12 @@ figcaption.under .count { flex: none; }
 
 /* footer: her name, in the middle */
 .foot { justify-content: center; text-align: center; }
+
+/* one font, one colour: the lead and the questions read like the rest */
+.lead, .rq {
+  font-family: var(--text);
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1.58;
+  color: var(--ink);
+}

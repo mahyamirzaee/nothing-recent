@@ -429,3 +429,46 @@ body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
 .empty-head { font-size: 19px; }
 .stop-text { font-size: 14px; }
 .cover-top, .pattern { font-size: 13.5px; }
+
+/* ---------------- The ball of wool ----------------
+   Tap it to knit a row. It turns a little each time, and a short thread
+   swings under it. It makes the cover look like a small knitting game. */
+.yarn {
+  position: relative;
+  display: block;
+  width: 92px; height: 92px;
+  margin: 0 auto 10px;
+  padding: 0;
+  border-radius: 50%;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.yarn svg { width: 100%; height: 100%; overflow: visible; transition: transform 520ms cubic-bezier(0.25, 1.2, 0.4, 1); }
+.yarn .y-ball { fill: rgba(179, 173, 216, 0.5); stroke: var(--indigo); stroke-width: 2; }
+.yarn .y-wind path { fill: none; stroke: var(--indigo); stroke-width: 1.6; stroke-linecap: round; opacity: 0.75; }
+.yarn:active svg { transform: scale(0.94); }
+
+/* the loose end of the yarn, hanging from the ball */
+.y-thread {
+  position: absolute;
+  left: 50%; top: 86%;
+  width: 2px; height: 26px;
+  margin-left: -1px;
+  background: var(--indigo);
+  opacity: 0.55;
+  transform-origin: top center;
+  border-radius: 2px;
+  transition: height 420ms ease;
+}
+.yarn.knitting .y-thread { animation: sway 620ms ease; }
+@keyframes sway {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(13deg); }
+  60% { transform: rotate(-9deg); }
+  100% { transform: rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .yarn svg, .y-thread { transition: none; }
+  .yarn.knitting .y-thread { animation: none; }
+}
+.counter { gap: 0; }
