@@ -7,25 +7,34 @@
   <meta name="description" content="A stitch counter.">
   <meta name="theme-color" content="#fbfaf8">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="app.css?v=12">
+  <link rel="stylesheet" href="app.css?v=13">
 </head>
 <body data-view="entry">
 
 <div class="phone">
 
   <!-- ============ The frame: what this is, said once, before you go in ============ -->
-  <section class="layer entry" id="entry" aria-label="About this prototype">
+  <section class="layer entry" id="entry" aria-label="Nothing Recent">
     <div class="entry-body">
-      <h1 class="entry-title">Nothing Recent</h1>
-      <div class="entry-thread" aria-hidden="true"></div>
+      <h1 class="entry-title">nothing<br>recent</h1>
 
-      <p>An app that forgets.<br>A hood that covers before you decide.</p>
-      <p class="entry-note">It protects no one. Everything inside is invented.</p>
-      <p class="entry-note">Press and hold the number. Inside, a minute passes every two seconds.</p>
+      <svg class="entry-ball" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="y-ball" cx="50" cy="50" r="34"></circle>
+        <g class="y-wind">
+          <path d="M22 38c14 10 42 10 56 0"></path>
+          <path d="M18 52c16 12 48 12 64 0"></path>
+          <path d="M23 64c14 10 40 10 54 0"></path>
+          <path d="M34 20c-8 18-8 42 0 60"></path>
+          <path d="M52 16c-9 22-9 46 0 68"></path>
+          <path d="M68 21c-8 18-8 40 0 58"></path>
+        </g>
+      </svg>
+
+      <p class="entry-line">Stay aware. Keep moving. Look out for each other.</p>
 
       <button type="button" class="entry-go" id="entry-go">Enter</button>
-      <p class="entry-foot">Mahya Mirzaee, 2026 · <a href="project.html">about the project</a></p>
     </div>
+    <p class="entry-foot">Speculative prototype · Mahya Mirzaee, 2026</p>
   </section>
 
   <!-- ============ The cover: an ordinary stitch counter ============ -->

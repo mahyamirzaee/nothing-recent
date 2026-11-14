@@ -567,3 +567,9 @@ figcaption.under .count { flex: none; }
 
 /* related work: just the titles */
 .refs li { margin-bottom: 10px; }
+
+/* related work in the same plain shape as the other project pages */
+.related-plain { margin-top: 26px; padding-top: 14px; }
+.related-plain ol { display: block; }
+.related-plain li { font-size: 15px; margin-bottom: 8px; }
+.related-plain li::before { content: none; }

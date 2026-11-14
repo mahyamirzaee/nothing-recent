@@ -320,100 +320,43 @@ body:not([data-view="stop"]) .sheet-stop .stop-body { transform: translateY(100%
 }
 .map-note { line-height: 1.45; }
 
-/* ---------------- The frame: said once, before the prototype ----------------
-   The honest words live here and on the project page, not inside the app.
-   Inside, the artefact is allowed to be coherent. */
-.entry { z-index: 4; justify-content: center; padding: 26px 24px 30px; }
+/* ---------------- The way in ----------------
+   The name, a ball of wool, one sentence, one button. Nothing else. */
+.entry { z-index: 4; justify-content: center; align-items: center; padding: 28px 24px 22px; text-align: center; }
 body:not([data-view="entry"]) .entry { opacity: 0; pointer-events: none; }
-.entry-kicker { margin: 0 0 4px; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
-.entry-title { margin: 0; font-family: var(--head); font-size: 32px; font-weight: 400; line-height: 1.1; }
-.entry-thread {
-  width: 110px; height: 3px; margin: 14px 0 18px;
-  background: linear-gradient(90deg, var(--indigo) 0 62%, var(--lilac) 62% 100%);
-  opacity: 0.85;
+.entry-body { display: flex; flex-direction: column; align-items: center; }
+.entry-title {
+  margin: 0;
+  font-family: var(--head);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
 }
-.entry-body > p { margin: 0 0 12px; font-size: 16px; line-height: 1.5; }
-.entry-note { font-size: 13.5px; line-height: 1.55; color: var(--soft); }
+.entry-ball { width: 92px; height: 92px; margin: 26px 0 22px; }
+.entry-ball .y-ball { fill: rgba(179, 173, 216, 0.5); stroke: var(--indigo); stroke-width: 2; }
+.entry-ball .y-wind path { fill: none; stroke: var(--indigo); stroke-width: 1.6; stroke-linecap: round; opacity: 0.75; }
+.entry-line { margin: 0 0 26px; max-width: 20ch; font-size: 16px; line-height: 1.5; color: var(--ink); }
 .entry-go {
-  width: 100%;
-  margin: 18px 0 0;
-  padding: 16px;
-  border-radius: 12px;
-  background: var(--indigo);
-  color: #fff;
+  padding: 14px 30px;
+  border: 1px solid var(--indigo);
+  border-radius: 999px;
+  background: rgba(179, 173, 216, 0.4);
+  color: var(--indigo);
+  font-size: 15.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
-.entry-go:active { opacity: 0.85; }
-.entry-foot { margin: 14px 0 0; font-size: 12px; text-align: center; color: var(--soft); }
-.entry-foot a { color: var(--indigo); }
-
-/* the cover now fades in from the frame */
-body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
-
-/* ---------------- How long a report is worth trusting ----------------
-   The app does not know. She sets it. */
-.trust { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 12px 0 2px; }
-.trust-ask { font-size: 13px; color: var(--soft); }
-.trust-opts { display: flex; align-items: center; gap: 4px; }
-.trust-opts button {
-  min-width: 38px;
-  padding: 5px 8px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
+.entry-go:active { background: rgba(179, 173, 216, 0.7); }
+.entry-foot {
+  position: absolute;
+  left: 0; right: 0; bottom: 14px;
+  margin: 0;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
   color: var(--soft);
-  background: #fff;
+  opacity: 0.8;
 }
-.trust-opts button.on { border-color: var(--indigo); color: var(--indigo); background: rgba(179, 173, 216, 0.22); font-weight: 700; }
-.trust-unit { margin-left: 2px; font-size: 12.5px; color: var(--soft); }
-
-/* ---------------- The hood ----------------
-   It acts first and tells her afterwards. The icon is a simple hood shape:
-   open = a loose loop, closed = a tight one. */
-.hood {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 12px;
-  padding: 10px 12px;
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  background: #fff;
-  transition: background 500ms ease, border-color 500ms ease;
-}
-.hood-icon {
-  flex: none;
-  width: 26px; height: 26px;
-  border: 2px solid var(--indigo);
-  border-radius: 50% 50% 46% 46%;
-  transition: clip-path 600ms ease, background 600ms ease, border-color 500ms ease;
-  clip-path: inset(0 0 0 0);
-}
-.hood-text { flex: 1; min-width: 0; font-size: 13px; line-height: 1.35; }
-.hood-text b { display: block; font-size: 13.5px; }
-.hood-text span { color: var(--soft); }
-.hood button {
-  flex: none;
-  padding: 7px 10px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  font-size: 12.5px;
-  color: var(--indigo);
-  background: #fff;
-}
-
-/* closed: the garment has covered her */
-.hood[data-state="closed"] { background: rgba(38, 48, 127, 0.07); border-color: var(--indigo); }
-.hood[data-state="closed"] .hood-icon { background: var(--indigo); border-radius: 50%; }
-.hood[data-state="closed"] .hood-text b { color: var(--indigo); }
-
-/* held: she refused, and it stays open while danger is near */
-.hood[data-state="held"] { background: rgba(138, 90, 43, 0.07); border-color: rgba(138, 90, 43, 0.5); }
-.hood[data-state="held"] .hood-icon { border-color: var(--warn); }
-.hood[data-state="held"] .hood-text b { color: var(--warn); }
-@media (prefers-reduced-motion: reduce) { .hood, .hood-icon { transition: none; } }
 
 /* ---------------- Readability ----------------
    The screen is read in a street, quickly, and often in bright light.
