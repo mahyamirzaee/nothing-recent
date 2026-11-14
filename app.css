@@ -499,3 +499,8 @@ body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
   .y-tail, .y-ball-wrap, .y-ball-wrap svg { animation: none; transition: none; }
 }
 .counter { gap: 0; }
+
+/* the frame is a few words now, not a page of them */
+.entry-body > p { margin: 0 0 10px; font-size: 17px; line-height: 1.45; }
+.entry-note { font-size: 13.5px; line-height: 1.5; }
+.entry-go { margin-top: 22px; }

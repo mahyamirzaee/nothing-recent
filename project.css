@@ -564,3 +564,6 @@ figcaption.under .count { flex: none; }
   line-height: 1.58;
   color: var(--ink);
 }
+
+/* related work: just the titles */
+.refs li { margin-bottom: 10px; }
