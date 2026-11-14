@@ -396,3 +396,42 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
 .frame.r32.slides { max-width: 372px; }
 .slidebar { max-width: 372px; }
 .stack { width: 100%; max-width: 560px; }
+
+/* ---------- Turning a stack: the edges answer the mouse ----------
+   Both the phone screens and the drawings behave the same way. */
+.turn, .stack { cursor: pointer; }
+.turn::before, .turn::after,
+.stack::before, .stack::after {
+  content: "‹";
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 26px; height: 26px;
+  margin-top: -13px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(251, 250, 248, 0.9);
+  color: var(--indigo);
+  font-size: 17px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+.turn::before, .stack::before { left: 7px; }
+.turn::after, .stack::after { content: "›"; right: 7px; }
+.turn:hover::before, .turn:hover::after, .turn:focus-visible::before, .turn:focus-visible::after,
+.stack:hover::before, .stack:hover::after, .stack:focus-visible::before, .stack:focus-visible::after { opacity: 1; }
+
+/* the phone screens get the same paper-stack shadow and lift */
+.slides.stack .slide { transition: opacity 420ms ease; }
+
+/* the drawings fill their column, so no empty corridor is left beside the text */
+.stack { max-width: none; }
+.slidebar .count { margin-left: auto; font-size: 13px; color: var(--soft); font-variant-numeric: tabular-nums; }
+
+/* each figure takes the full width of its column; only the phone is capped */
+.sheet > .cluster > figure { width: 100%; }
+.sheet > .cluster { justify-items: stretch; }
+@media (min-width: 1200px) { .sheet > .cluster { justify-items: stretch; } }
+.frame.r32.slides, .slidebar { margin-left: auto; margin-right: auto; }

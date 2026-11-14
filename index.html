@@ -6,7 +6,7 @@
   <title>Nothing Recent · Mahya Mirzaee</title>
   <meta name="description" content="Nothing Recent: an app and a responsive hood exploring how technology might help women navigate public spaces under compulsory hijab enforcement in Iran.">
   <meta name="theme-color" content="#fbfaf8">
-  <link rel="stylesheet" href="project.css?v=13">
+  <link rel="stylesheet" href="project.css?v=15">
 </head>
 <body>
 <div class="page">
@@ -35,7 +35,8 @@
 
     <div class="cluster">
       <figure>
-        <div class="frame r32 slides" id="slides" aria-roledescription="slideshow" aria-label="Screen captures of the prototype">
+        <!-- the screens are a stack too: click the left or right edge to turn one -->
+        <div class="frame r32 slides stack turn" id="slides" tabindex="0" role="button" aria-roledescription="slideshow" aria-label="Screen captures of the prototype. Click the right or left edge to turn to the next one.">
           <img class="slide on" src="img/app-1-cover.jpg" alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows.">
           <img class="slide" src="img/app-2-nearby.jpg" alt="Inside: 'Hood closed — it covered you. You did not decide this', above a grid map with fading dots and a list of reports." loading="lazy">
           <img class="slide" src="img/app-5-held.jpg" alt="The same screen after she refuses: 'Hood open — you are holding it open. It is close.'" loading="lazy">
@@ -44,12 +45,7 @@
         </div>
         <div class="slidebar">
           <a class="try" href="prototype.html" target="_blank" rel="noopener">Try the live prototype ↗</a>
-          <div class="controls">
-            <button type="button" id="slide-pause" aria-label="Pause slideshow">II</button>
-            <button type="button" id="slide-prev" aria-label="Previous image">‹</button>
-            <span class="count" id="slide-count">1/5</span>
-            <button type="button" id="slide-next" aria-label="Next image">›</button>
-          </div>
+          <span class="count" id="slide-count">1/5</span>
         </div>
       </figure>
     </div>
@@ -97,61 +93,33 @@
 </div>
 
 <script>
-  // Slideshow: the next screen capture every 6 seconds.
-  // Pauses on hover and with the II button; stays still for visitors who reduce motion.
-  (function () {
-    var box = document.getElementById("slides");
-    var slides = box.querySelectorAll(".slide");
-    var count = document.getElementById("slide-count");
-    var pauseBtn = document.getElementById("slide-pause");
-    var i = 0, timer = null, paused = false, hovering = false;
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    function go(n) {
-      slides[i].classList.remove("on");
-      i = (n + slides.length) % slides.length;
-      slides[i].classList.add("on");
-      count.textContent = (i + 1) + "/" + slides.length;
-    }
-    function schedule() {
-      clearInterval(timer);
-      if (!paused && !hovering) timer = setInterval(function () { go(i + 1); }, 6000);
-    }
-    document.getElementById("slide-next").onclick = function () { go(i + 1); schedule(); };
-    document.getElementById("slide-prev").onclick = function () { go(i - 1); schedule(); };
-    pauseBtn.onclick = function () {
-      paused = !paused;
-      pauseBtn.textContent = paused ? "▶" : "II";
-      pauseBtn.setAttribute("aria-label", paused ? "Play slideshow" : "Pause slideshow");
-      schedule();
-    };
-    box.addEventListener("mouseenter", function () { hovering = true; schedule(); });
-    box.addEventListener("mouseleave", function () { hovering = false; schedule(); });
-    if (reduce) { paused = true; pauseBtn.textContent = "▶"; }
-    count.textContent = "1/" + slides.length;
-    schedule();
-  })();
-</script>
-
-<script>
-  // The stack of drawings: a click (or Enter) turns to the next sheet.
-  (function () {
-    var box = document.getElementById("stack");
+  // Every picture frame is a little stack you turn by hand.
+  // Click (or tap) the right side for the next one, the left side for the one before.
+  // It goes round in a circle, and the arrow keys work too.
+  function makeTurner(boxId, itemSelector, countId) {
+    var box = document.getElementById(boxId);
     if (!box) return;
-    var items = box.querySelectorAll(".stack-item");
-    var count = document.getElementById("stack-count");
+    var items = box.querySelectorAll(itemSelector);
+    var count = countId ? document.getElementById(countId) : null;
     var i = 0;
-    function next() {
-      items[i].classList.remove("on");
-      i = (i + 1) % items.length;
-      items[i].classList.add("on");
-      count.textContent = (i + 1) + "/" + items.length;
+    function go(step) {
+      items[i].classList.remove('on');
+      i = (i + step + items.length) % items.length;
+      items[i].classList.add('on');
+      if (count) count.textContent = (i + 1) + '/' + items.length;
     }
-    box.addEventListener("click", next);
-    box.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); next(); }
+    box.addEventListener('click', function (e) {
+      var r = box.getBoundingClientRect();
+      go(e.clientX - r.left < r.width * 0.35 ? -1 : 1);
     });
-  })();
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(1); }
+    });
+    if (count) count.textContent = '1/' + items.length;
+  }
+  makeTurner('slides', '.slide', 'slide-count');
+  makeTurner('stack', '.stack-item', 'stack-count');
 </script>
 
 <script>
