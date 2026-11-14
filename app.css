@@ -447,3 +447,8 @@ body:not([data-view="entry"]) .entry { opacity: 0; pointer-events: none; }
 .entry-body > p { margin: 0 0 10px; font-size: 17px; line-height: 1.45; }
 .entry-note { font-size: 13.5px; line-height: 1.5; }
 .entry-go { margin-top: 22px; }
+
+/* the one thing a visitor needs to know before going in */
+.entry-hint { margin: 0 0 18px; font-size: 12.5px; letter-spacing: 0.02em; color: var(--soft); }
+.entry-line { margin-bottom: 18px; }
+.entry-go { margin-top: 0; }
