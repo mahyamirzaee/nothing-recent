@@ -573,3 +573,12 @@ figcaption.under .count { flex: none; }
 .related-plain ol { display: block; }
 .related-plain li { font-size: 15px; margin-bottom: 8px; }
 .related-plain li::before { content: none; }
+
+/* the three papers stand side by side, one row */
+.related-plain ol.refs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.related-plain li { margin-bottom: 0; font-size: 14px; line-height: 1.45; }
+@media (max-width: 760px) { .related-plain ol.refs { grid-template-columns: 1fr; gap: 12px; } }
