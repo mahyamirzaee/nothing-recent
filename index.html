@@ -6,7 +6,7 @@
   <title>Nothing Recent · Mahya Mirzaee</title>
   <meta name="description" content="Nothing Recent: an app and a responsive hood exploring how technology might help women navigate public spaces under compulsory hijab enforcement in Iran.">
   <meta name="theme-color" content="#fbfaf8">
-  <link rel="stylesheet" href="project.css?v=15">
+  <link rel="stylesheet" href="project.css?v=16">
 </head>
 <body>
 <div class="page">
@@ -35,8 +35,8 @@
 
     <div class="cluster">
       <figure>
-        <!-- the screens are a stack too: click the left or right edge to turn one -->
-        <div class="frame r32 slides stack turn" id="slides" tabindex="0" role="button" aria-roledescription="slideshow" aria-label="Screen captures of the prototype. Click the right or left edge to turn to the next one.">
+        <!-- the screens stand in a ring: the next and the previous wait at the edges -->
+        <div class="carousel turn" id="slides" tabindex="0" role="button" aria-roledescription="carousel" aria-label="Screen captures of the prototype. Click the right or left side to turn the ring.">
           <img class="slide on" src="img/app-1-cover.jpg" alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows.">
           <img class="slide" src="img/app-2-nearby.jpg" alt="Inside: 'Hood closed — it covered you. You did not decide this', above a grid map with fading dots and a list of reports." loading="lazy">
           <img class="slide" src="img/app-5-held.jpg" alt="The same screen after she refuses: 'Hood open — you are holding it open. It is close.'" loading="lazy">
@@ -118,7 +118,40 @@
     });
     if (count) count.textContent = '1/' + items.length;
   }
-  makeTurner('slides', '.slide', 'slide-count');
+  // The phone screens stand in a ring: the one before and the one after
+  // wait at the edges, smaller and paler. Clicking a side turns the ring.
+  (function () {
+    var box = document.getElementById('slides');
+    if (!box) return;
+    var slides = [].slice.call(box.querySelectorAll('.slide'));
+    var count = document.getElementById('slide-count');
+    var n = slides.length, cur = 0;
+
+    function place() {
+      slides.forEach(function (el, i) {
+        var d = i - cur;
+        if (d > n / 2) d -= n;
+        if (d < -n / 2) d += n;
+        var far = Math.abs(d);
+        el.style.transform = 'translate(-50%, -50%) translateX(' + (d * 62) + '%) scale(' + (far === 0 ? 1 : far === 1 ? 0.78 : 0.62) + ')';
+        el.style.opacity = far === 0 ? 1 : far === 1 ? 0.55 : 0;
+        el.style.zIndex = 10 - far;
+        el.classList.toggle('on', far === 0);
+      });
+      count.textContent = (cur + 1) + '/' + n;
+    }
+    function go(step) { cur = (cur + step + n) % n; place(); }
+
+    box.addEventListener('click', function (e) {
+      var r = box.getBoundingClientRect();
+      go(e.clientX - r.left < r.width / 2 ? -1 : 1);
+    });
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(1); }
+    });
+    place();
+  })();
   makeTurner('stack', '.stack-item', 'stack-count');
 </script>
 
