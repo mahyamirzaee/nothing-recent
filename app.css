@@ -431,44 +431,71 @@ body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
 .cover-top, .pattern { font-size: 13.5px; }
 
 /* ---------------- The ball of wool ----------------
-   Tap it to knit a row. It turns a little each time, and a short thread
-   swings under it. It makes the cover look like a small knitting game. */
+   It hangs from a curly thread, swings on its own, wobbles when you tap it,
+   and you can pull it down to knit. A small, silly game on the cover. */
 .yarn {
   position: relative;
   display: block;
-  width: 92px; height: 92px;
-  margin: 0 auto 10px;
+  width: 108px;
+  height: 170px;
+  margin: 0 auto 2px;
   padding: 0;
-  border-radius: 50%;
   background: none;
+  touch-action: none;
   -webkit-tap-highlight-color: transparent;
 }
-.yarn svg { width: 100%; height: 100%; overflow: visible; transition: transform 520ms cubic-bezier(0.25, 1.2, 0.4, 1); }
-.yarn .y-ball { fill: rgba(179, 173, 216, 0.5); stroke: var(--indigo); stroke-width: 2; }
-.yarn .y-wind path { fill: none; stroke: var(--indigo); stroke-width: 1.6; stroke-linecap: round; opacity: 0.75; }
-.yarn:active svg { transform: scale(0.94); }
-
-/* the loose end of the yarn, hanging from the ball */
-.y-thread {
+/* the curly thread hangs from the top and the ball hangs from its end */
+.y-tail {
   position: absolute;
-  left: 50%; top: 86%;
-  width: 2px; height: 26px;
-  margin-left: -1px;
-  background: var(--indigo);
-  opacity: 0.55;
-  transform-origin: top center;
-  border-radius: 2px;
+  left: 50%; top: 0;
+  width: 76px;
+  height: var(--len, 56px);
+  margin-left: -38px;
+  overflow: visible;
+  transform-origin: 50% 0;
+  animation: dangle 5.5s ease-in-out infinite;
   transition: height 420ms ease;
 }
-.yarn.knitting .y-thread { animation: sway 620ms ease; }
-@keyframes sway {
-  0% { transform: rotate(0deg); }
-  30% { transform: rotate(13deg); }
-  60% { transform: rotate(-9deg); }
-  100% { transform: rotate(0deg); }
+.y-curl {
+  fill: none;
+  stroke: var(--indigo);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  opacity: 0.6;
+  vector-effect: non-scaling-stroke;
 }
+.y-ball-wrap {
+  position: absolute;
+  left: 50%;
+  top: var(--len, 56px);
+  width: 84px; height: 84px;
+  margin-left: -42px;
+  transform-origin: 50% -40%;
+  animation: dangle 5.5s ease-in-out infinite;
+  transition: transform 260ms cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.y-ball-wrap svg { width: 100%; height: 100%; transition: transform 620ms cubic-bezier(0.25, 1.2, 0.4, 1); }
+.y-ball { fill: rgba(179, 173, 216, 0.5); stroke: var(--indigo); stroke-width: 2; }
+.y-wind path { fill: none; stroke: var(--indigo); stroke-width: 1.6; stroke-linecap: round; opacity: 0.75; }
+
+/* it swings gently all by itself */
+@keyframes dangle {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+/* and it bounces when a row is knitted */
+.yarn.knitting .y-ball-wrap { animation: bounce 620ms cubic-bezier(0.3, 1.3, 0.4, 1); }
+@keyframes bounce {
+  0%   { transform: translateY(0) scale(1, 1); }
+  28%  { transform: translateY(10px) scale(1.12, 0.88); }
+  58%  { transform: translateY(-8px) scale(0.93, 1.07); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+/* while it is being pulled, nothing swings: it follows the finger */
+.yarn.pulling .y-tail, .yarn.pulling .y-ball-wrap { animation: none; }
+.yarn.pulling .y-ball-wrap { transition: none; }
+
 @media (prefers-reduced-motion: reduce) {
-  .yarn svg, .y-thread { transition: none; }
-  .yarn.knitting .y-thread { animation: none; }
+  .y-tail, .y-ball-wrap, .y-ball-wrap svg { animation: none; transition: none; }
 }
 .counter { gap: 0; }

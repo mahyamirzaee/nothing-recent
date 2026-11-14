@@ -7,7 +7,7 @@
   <meta name="description" content="A stitch counter.">
   <meta name="theme-color" content="#fbfaf8">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="app.css?v=9">
+  <link rel="stylesheet" href="app.css?v=11">
 </head>
 <body data-view="entry">
 
@@ -42,20 +42,24 @@
     <p class="pattern">Current pattern<strong>Grey scarf · 2x2 rib</strong></p>
 
     <div class="counter">
-      <!-- the ball of wool: tap it to knit a row. It turns, and the yarn grows. -->
-      <button type="button" class="yarn" id="yarn" aria-label="Knit one row">
-        <svg viewBox="0 0 100 100" aria-hidden="true">
-          <circle class="y-ball" cx="50" cy="50" r="34"></circle>
-          <g class="y-wind">
-            <path d="M22 38c14 10 42 10 56 0"></path>
-            <path d="M18 52c16 12 48 12 64 0"></path>
-            <path d="M23 64c14 10 40 10 54 0"></path>
-            <path d="M34 20c-8 18-8 42 0 60"></path>
-            <path d="M52 16c-9 22-9 46 0 68"></path>
-            <path d="M68 21c-8 18-8 40 0 58"></path>
-          </g>
+      <!-- the ball of wool: tap it, or pull it down, to knit. It hangs loose and wobbles. -->
+      <button type="button" class="yarn" id="yarn" aria-label="Knit one row. You can also pull it down.">
+        <svg class="y-tail" viewBox="0 0 60 90" aria-hidden="true">
+          <path class="y-curl" d="M30 2 C 12 14, 48 24, 30 38 C 12 52, 48 62, 30 76 C 20 84, 36 88, 30 90"></path>
         </svg>
-        <span class="y-thread" aria-hidden="true"></span>
+        <span class="y-ball-wrap" id="yball">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle class="y-ball" cx="50" cy="50" r="34"></circle>
+            <g class="y-wind">
+              <path d="M22 38c14 10 42 10 56 0"></path>
+              <path d="M18 52c16 12 48 12 64 0"></path>
+              <path d="M23 64c14 10 40 10 54 0"></path>
+              <path d="M34 20c-8 18-8 42 0 60"></path>
+              <path d="M52 16c-9 22-9 46 0 68"></path>
+              <path d="M68 21c-8 18-8 40 0 58"></path>
+            </g>
+          </svg>
+        </span>
       </button>
 
       <!-- press and hold this number for 1.2 seconds to open the inside -->
@@ -142,6 +146,6 @@
 
 </div>
 
-<script src="app.js?v=14"></script>
+<script src="app.js?v=15"></script>
 </body>
 </html>

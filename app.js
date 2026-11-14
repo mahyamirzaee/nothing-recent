@@ -20,30 +20,54 @@
   var countBtn = document.getElementById("count");
 
   var yarn = document.getElementById('yarn');
-  var yThread = yarn.querySelector('.y-thread');
-  var ySvg = yarn.querySelector('svg');
+  var yBall = document.getElementById('yball');
+  var ySvg = yBall.querySelector('svg');
   var spin = 0;
 
   function draw() {
     countBtn.textContent = n;
-    // the ball turns with the rows, and the loose end grows a little
+    // the ball turns with the rows, and the thread it hangs from grows
     ySvg.style.transform = 'rotate(' + spin + 'deg)';
-    yThread.style.height = Math.min(26 + n * 1.6, 54) + 'px';
+    yarn.style.setProperty('--len', Math.min(48 + n * 1.4, 92) + 'px');
   }
   function knit(step) {
     if (step < 0 && n === 0) return;
     n += step;
-    spin += step * 24;
+    spin += step * (18 + Math.round(Math.random() * 16));   // never quite the same turn twice
     yarn.classList.remove('knitting');
     void yarn.offsetWidth;
     yarn.classList.add('knitting');
     draw();
   }
-  yarn.onclick = function () { knit(1); };
-  document.getElementById("plus").onclick = function () { knit(1); };
-  document.getElementById("minus").onclick = function () { knit(-1); };
-  document.getElementById("reset").onclick = function () { n = 0; spin = 0; draw(); };
-  draw();
+
+  /* Pull the ball down and rows are knitted, one for every 26 pixels.
+     Let go and it springs back. A tap on the spot knits one row. */
+  (function () {
+    var pulling = false, startY = 0, done = 0;
+    yarn.addEventListener('pointerdown', function (e) {
+      pulling = true; startY = e.clientY; done = 0;
+      yarn.classList.add('pulling');
+      yarn.setPointerCapture && yarn.setPointerCapture(e.pointerId);
+    });
+    yarn.addEventListener('pointermove', function (e) {
+      if (!pulling) return;
+      var dy = Math.max(0, Math.min(e.clientY - startY, 120));
+      yBall.style.transform = 'translateY(' + dy + 'px)';
+      var rows = Math.floor(dy / 26);
+      while (done < rows) { knit(1); done++; }
+    });
+    function letGo() {
+      if (!pulling) return;
+      pulling = false;
+      yarn.classList.remove('pulling');
+      yBall.style.transform = '';          // it springs back
+      if (done === 0) knit(1);             // a tap is one row
+    }
+    yarn.addEventListener('pointerup', letGo);
+    yarn.addEventListener('pointercancel', letGo);
+    yarn.addEventListener('pointerleave', letGo);
+    yarn.addEventListener('click', function (e) { e.preventDefault(); });
+  })();
 
   /* ---------- The way in: press and hold the number ---------- */
   var HOLD = 1200;
