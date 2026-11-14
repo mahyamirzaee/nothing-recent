@@ -65,9 +65,13 @@
     }
     yarn.addEventListener('pointerup', letGo);
     yarn.addEventListener('pointercancel', letGo);
-    yarn.addEventListener('pointerleave', letGo);
     yarn.addEventListener('click', function (e) { e.preventDefault(); });
   })();
+
+  document.getElementById('plus').onclick = function () { knit(1); };
+  document.getElementById('minus').onclick = function () { knit(-1); };
+  document.getElementById('reset').onclick = function () { n = 0; spin = 0; draw(); };
+  draw();
 
   /* ---------- The way in: press and hold the number ---------- */
   var HOLD = 1200;
