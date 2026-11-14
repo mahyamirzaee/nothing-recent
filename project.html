@@ -6,7 +6,7 @@
   <title>Nothing Recent · Mahya Mirzaee</title>
   <meta name="description" content="Nothing Recent: an app and a responsive hood exploring how technology might help women navigate public spaces under compulsory hijab enforcement in Iran.">
   <meta name="theme-color" content="#fbfaf8">
-  <link rel="stylesheet" href="project.css?v=19">
+  <link rel="stylesheet" href="project.css?v=20">
 <style id="site-bar">
   /* same top bar as the portfolio (mahyamirzaee.github.io) */
   .site-bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 24px; padding: 4px 0 26px; font-family: "Atkinson Hyperlegible Next", system-ui, sans-serif; }
@@ -52,37 +52,8 @@
       <p>In Iran, the enforcement of compulsory hijab shapes how women experience and move through public spaces. Morality patrols and other enforcement agencies can appear in different locations and at unpredictable times, so women often rely on shared information to anticipate their presence and to make decisions about where and when to move. But this information is temporary, uncertain, and difficult to keep up to date. Nothing Recent explores how this everyday exchange could be supported through a connected, location-aware system.</p>
 
       <h2>Two objects</h2>
-      <p>The project consists of a mobile application and a responsive hood. The application looks like a simple knitting counter, and it works as one, displaying the number of rows — but a long press reveals another layer: a map where users can report the presence of enforcement patrols. Reports gradually expire, remaining visible for 20, 40, or 60 minutes, depending on the user's choice.</p>
+      <p>The project consists of a mobile application and a responsive hood. The application looks like a simple knitting counter, and it works as one, displaying the number of rows, but a long press reveals another layer: a map where users can report the presence of enforcement patrols. Reports gradually expire, remaining visible for 20, 40, or 60 minutes, depending on the user's choice.</p>
       <p>When a reported patrol is nearby, the connected hood automatically moves to cover the wearer's head, and she can hold it open even while a warning is active. The hood responds before the wearer has to make a decision: it offers a form of protection, but it also takes control of a decision that should belong to her.</p>
-    </div>
-
-    <div class="cluster">
-      <figure>
-        <!-- the screens stand in a ring: the next and the previous wait at the edges -->
-        <div class="carousel turn" id="slides" tabindex="0" role="button" aria-roledescription="carousel" aria-label="Screen captures of the prototype. Click the right or left side to turn the ring.">
-          <img class="slide on" src="img/app-1-cover.jpg" data-cap="The app as it opens: a stitch counter that really counts rows. This is what anyone looking at the phone sees." alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows.">
-          <img class="slide" src="img/app-5-held.jpg" data-cap="The hood closes by itself when a patrol is reported close, and tells her afterwards. Here she has held it open." alt="The same screen after she refuses: 'Hood open — you are holding it open. It is close.'" loading="lazy">
-          <img class="slide" src="img/app-3-stopped.jpg" data-cap="Before telling anyone: two chosen names, and the reminder that their names are on her phone too." alt="The sheet before telling anyone: two chosen names, and the line that their names are on her phone too." loading="lazy">
-          <img class="slide" src="img/app-4-empty.jpg" data-cap="Nothing in the last 20 minutes — which is not the same as the street being clear." alt="The empty state: a map with only her own dot, and the line 'Nothing in the last 40 minutes.'" loading="lazy">
-        </div>
-        <div class="slidebar">
-          <a class="try" href="prototype.html" target="_blank" rel="noopener">Try the live prototype ↗</a>
-          <span class="count" id="slide-count">1/4</span>
-        </div>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ===== Screen 2: the hood, the tensions, the position ===== -->
-  <section class="sheet" aria-labelledby="hood-title">
-    <div class="col">
-      <h2 id="hood-title">A question of control</h2>
-      <p>A garment that covers a woman to protect her from enforcement also reproduces the very act of control it is supposed to help her navigate. The application raises similar questions: shared reports may offer awareness, but they are not necessarily accurate, information can disappear without meaning that a situation is safe, and reporting can introduce new forms of visibility and risk.</p>
-      <p class="rq">What does it mean to design a technology that protects someone by temporarily taking away their choice? Can a system support women's autonomy while also anticipating and influencing their behaviour?</p>
-
-      <h2>The small print</h2>
-      <p>Nothing Recent is a speculative design proposal, not a tested safety application. The mobile interface is prototyped using simulated reports and location-based interactions, while the responsive hood is explored as a conceptual wearable, and AI-assisted environmental awareness is considered as a possible extension rather than an implemented detection capability.</p>
-      <p>The project does not claim to provide real-world protection or to represent the experiences of all women in Iran. As an Iranian designer working in Germany, I approach this subject from my own position and use design to explore the relationship between bodily autonomy, technological protection, and institutional control.</p>
     </div>
 
     <div class="cluster">
@@ -97,18 +68,49 @@
     </div>
   </section>
 
+  <!-- ===== Screen 2: the hood, the tensions, the position ===== -->
+  <section class="sheet" aria-labelledby="hood-title">
+    <div class="col">
+      <h2 id="hood-title">A question of control</h2>
+      <p>A garment that covers a woman to protect her from enforcement also reproduces the very act of control it is supposed to help her navigate. The application raises similar questions: shared reports may offer awareness, but they are not necessarily accurate, information can disappear without meaning that a situation is safe, and reporting can introduce new forms of visibility and risk.</p>
+      <p class="rq">What does it mean to design a technology that protects someone by temporarily taking away their choice? Can a system support women's autonomy while also anticipating and influencing their behaviour?</p>
+
+      <h2>The small print</h2>
+      <p>Nothing Recent is a speculative design proposal, not a tested safety application. The mobile interface is prototyped using simulated reports and location-based interactions, while the responsive hood is explored as a conceptual wearable, and AI-assisted environmental awareness is considered as a possible extension rather than an implemented detection capability.</p>
+      <p>The project does not claim to provide real-world protection or to represent the experiences of all women in Iran. As an Iranian designer working in Germany, I approach this subject from my own autoethnographic standpoint, and use design to explore the relationship between bodily autonomy, technological protection, and institutional control.</p>
+    </div>
+
+    <div class="cluster">
+      <figure>
+        <!-- the screens stand in a ring: the next and the previous wait at the edges -->
+        <div class="carousel turn" id="slides" tabindex="0" role="button" aria-roledescription="carousel" aria-label="Screen captures of the prototype. Click the right or left side to turn the ring.">
+          <img class="slide on" src="img/app-1-cover.jpg" data-cap="The app as it opens: a stitch counter that really counts rows. This is what anyone looking at the phone sees." alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows.">
+          <img class="slide" src="img/app-5-held.jpg" data-cap="The hood closes by itself when a patrol is reported close, and tells her afterwards. Here she has held it open." alt="The same screen after she refuses: 'Hood open: you are holding it open. It is close.'" loading="lazy">
+          <img class="slide" src="img/app-3-stopped.jpg" data-cap="Before telling anyone: two chosen names, and the reminder that their names are on her phone too." alt="The sheet before telling anyone: two chosen names, and the line that their names are on her phone too." loading="lazy">
+          <img class="slide" src="img/app-4-empty.jpg" data-cap="Nothing in the last 20 minutes, which is not the same as the street being clear." alt="The empty state: a map with only her own dot, and the line 'Nothing in the last 40 minutes.'" loading="lazy">
+        </div>
+        <div class="slidebar">
+          <a class="try" href="prototype.html" target="_blank" rel="noopener">Try the live prototype ↗</a>
+          <span class="count" id="slide-count">1/4</span>
+        </div>
+      </figure>
+    </div>
+  </section>
+
   <section class="related" aria-labelledby="related-title">
     <h2 class="cluster-title" id="related-title">Related work</h2>
-    <ol>
-      <li>Gershad (2016) · crowdsourced mapping of guidance patrols in Tehran</li>
-      <li>Brunton &amp; Nissenbaum, <i>Obfuscation</i> (2015) · hiding as a form of protest</li>
-      <li>Dunne &amp; Raby, <i>Speculative Everything</i> (2013) · design as critique rather than solution</li>
+    <ol class="refs">
+      <li><a href="https://dl.acm.org/doi/full/10.1145/3715336.3735794" target="_blank" rel="noopener">The Quality of Speculation: A Scoping Review</a>
+        <span>dl.acm.org/doi/full/10.1145/3715336.3735794</span></li>
+      <li><a href="https://dl.acm.org/doi/full/10.1145/3772318.3790369" target="_blank" rel="noopener">From Using to Infrastructuring: Grassroots VPN-Building in Iran's Women–Life–Freedom Movement</a>
+        <span>dl.acm.org/doi/full/10.1145/3772318.3790369</span></li>
+      <li><a href="https://dl.acm.org/doi/full/10.1145/3772363.3778760" target="_blank" rel="noopener">The Quality of Speculation: Common Ground for Speculative Design in Human-Computer Interaction?</a>
+        <span>dl.acm.org/doi/full/10.1145/3772363.3778760</span></li>
     </ol>
   </section>
   </main>
 
   <footer class="foot">
-    <span>Built: a working browser prototype with invented data. Proposed: the hood.</span>
     <span>Mahya Mirzaee, 2026</span>
   </footer>
 </div>
@@ -178,6 +180,30 @@
     place();
   })();
   makeTurner('stack', '.stack-item', 'stack-count');
+
+  // the drawings turn by themselves every four seconds, and wait while you look
+  (function () {
+    var box = document.getElementById('stack');
+    if (!box || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var items = box.querySelectorAll('.stack-item');
+    var count = document.getElementById('stack-count');
+    var hovering = false, open = false;
+    box.addEventListener('mouseenter', function () { hovering = true; });
+    box.addEventListener('mouseleave', function () { hovering = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open = false; });
+    box.addEventListener('click', function () { open = true; setTimeout(function () { open = false; }, 8000); });
+    setInterval(function () {
+      if (hovering || open) return;
+      var lb = document.querySelector('.lightbox');
+      if (lb && !lb.hidden) return;
+      var i = 0;
+      items.forEach(function (el, k) { if (el.classList.contains('on')) i = k; });
+      items[i].classList.remove('on');
+      i = (i + 1) % items.length;
+      items[i].classList.add('on');
+      count.textContent = (i + 1) + '/' + items.length;
+    }, 4000);
+  })();
 </script>
 
 <script>

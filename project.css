@@ -535,3 +535,23 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
 /* the page number sits under the drawings, beside their caption */
 figcaption.under { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
 figcaption.under .count { flex: none; }
+
+/* a gentle frame around the drawings */
+.stack {
+  border: 1px solid rgba(20, 20, 24, 0.22);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+.stack .stack-item { width: calc(100% - 20px); height: calc(100% - 20px); inset: 10px; }
+
+/* references: linked titles, the address quietly underneath, no numbers */
+.related ol.refs { display: block; }
+.refs li { counter-increment: none; margin-bottom: 14px; }
+.refs li::before { content: none; }
+.refs a { color: var(--ink); text-decoration: underline; text-underline-offset: 0.18em; }
+.refs a:hover { color: var(--indigo); }
+.refs span { display: block; margin-top: 2px; font-size: 12px; color: var(--soft); word-break: break-all; }
+
+/* footer: her name, in the middle */
+.foot { justify-content: center; text-align: center; }
