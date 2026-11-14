@@ -368,3 +368,49 @@ body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
 }
 .trust-opts button.on { border-color: var(--indigo); color: var(--indigo); background: rgba(179, 173, 216, 0.22); font-weight: 700; }
 .trust-unit { margin-left: 2px; font-size: 12.5px; color: var(--soft); }
+
+/* ---------------- The hood ----------------
+   It acts first and tells her afterwards. The icon is a simple hood shape:
+   open = a loose loop, closed = a tight one. */
+.hood {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: #fff;
+  transition: background 500ms ease, border-color 500ms ease;
+}
+.hood-icon {
+  flex: none;
+  width: 26px; height: 26px;
+  border: 2px solid var(--indigo);
+  border-radius: 50% 50% 46% 46%;
+  transition: clip-path 600ms ease, background 600ms ease, border-color 500ms ease;
+  clip-path: inset(0 0 0 0);
+}
+.hood-text { flex: 1; min-width: 0; font-size: 13px; line-height: 1.35; }
+.hood-text b { display: block; font-size: 13.5px; }
+.hood-text span { color: var(--soft); }
+.hood button {
+  flex: none;
+  padding: 7px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: var(--indigo);
+  background: #fff;
+}
+
+/* closed: the garment has covered her */
+.hood[data-state="closed"] { background: rgba(38, 48, 127, 0.07); border-color: var(--indigo); }
+.hood[data-state="closed"] .hood-icon { background: var(--indigo); border-radius: 50%; }
+.hood[data-state="closed"] .hood-text b { color: var(--indigo); }
+
+/* held: she refused, and it stays open while danger is near */
+.hood[data-state="held"] { background: rgba(138, 90, 43, 0.07); border-color: rgba(138, 90, 43, 0.5); }
+.hood[data-state="held"] .hood-icon { border-color: var(--warn); }
+.hood[data-state="held"] .hood-text b { color: var(--warn); }
+@media (prefers-reduced-motion: reduce) { .hood, .hood-icon { transition: none; } }

@@ -309,3 +309,7 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
   .sheet > .cluster { grid-template-columns: minmax(0, 1fr); justify-items: end; }
   .sheet > .cluster > figure { grid-column: 1; }
 }
+
+/* a quiet line between the two screens */
+.sheet + .sheet { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--rule); }
+.tensions { margin-top: 0.4em; }

@@ -140,7 +140,48 @@
 
     emptyHead.textContent = "Nothing in the last " + LIFE + " minutes.";
     empty.hidden = shown.length > 0;
+    hood(shown);
   }
+
+  /* ---------- The hood ----------
+     A report that is close and fresh closes the hood by itself. The woman is
+     not asked; she is told afterwards. She can hold it open, and the garment
+     obeys her instead — which is the whole question this project is about. */
+  var CLOSE = 28;          // how near a report must be, in map units, to count as close
+  var held = false;        // she has told the hood to stay open
+  var hoodBox = document.getElementById("hood");
+  var hoodState = document.getElementById("hood-state");
+  var hoodSaid = document.getElementById("hood-said");
+  var hoodHold = document.getElementById("hood-hold");
+
+  function hood(shown) {
+    // "close" means near her on the map, and still inside the window she trusts
+    var near = shown.some(function (s) {
+      var dx = s.x - 50, dy = s.y - 50;
+      return Math.sqrt(dx * dx + dy * dy) < CLOSE;
+    });
+    var closed = near && !held;
+    hoodBox.dataset.state = closed ? "closed" : (held && near ? "held" : "open");
+
+    if (closed) {
+      hoodState.textContent = "Hood closed";
+      hoodSaid.textContent = "It covered you. You did not decide this.";
+      hoodHold.textContent = "Hold it open";
+    } else if (held && near) {
+      hoodState.textContent = "Hood open";
+      hoodSaid.textContent = "You are holding it open. It is close.";
+      hoodHold.textContent = "Let it close";
+    } else {
+      hoodState.textContent = "Hood open";
+      hoodSaid.textContent = near ? "Something close." : "Nothing close.";
+      hoodHold.textContent = held ? "Let it close" : "Hold it open";
+    }
+  }
+
+  hoodHold.onclick = function () {
+    held = !held;
+    render();
+  };
 
   /* She decides how long a report is worth trusting. Changing it can empty
      the list at once, which is the honest consequence of a shorter trust. */

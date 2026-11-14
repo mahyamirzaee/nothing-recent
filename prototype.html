@@ -7,7 +7,7 @@
   <meta name="description" content="A stitch counter.">
   <meta name="theme-color" content="#fbfaf8">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="app.css?v=6">
+  <link rel="stylesheet" href="app.css?v=7">
 </head>
 <body data-view="entry">
 
@@ -63,6 +63,17 @@
     </div>
 
     <div class="inside-body">
+      <!-- The hood acts on its own, whether or not this screen is open.
+           The app only reports what the garment already did. -->
+      <div class="hood" id="hood" data-state="open">
+        <span class="hood-icon" aria-hidden="true"></span>
+        <span class="hood-text">
+          <b id="hood-state">Hood open</b>
+          <span id="hood-said">Nothing close.</span>
+        </span>
+        <button type="button" id="hood-hold">Hold it open</button>
+      </div>
+
       <div class="map" id="map" aria-label="Abstract map of reported sightings around you. Demonstration data.">
         <span class="me" aria-hidden="true"></span>
       </div>
@@ -115,6 +126,6 @@
 
 </div>
 
-<script src="app.js?v=9"></script>
+<script src="app.js?v=12"></script>
 </body>
 </html>
