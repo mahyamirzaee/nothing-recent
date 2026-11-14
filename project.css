@@ -593,3 +593,7 @@ figcaption.under .count { flex: none; }
 @media (min-width: 1200px) {
   .sheet + .sheet > .cluster { margin-top: -200px; }
 }
+
+/* the caption under the screens is itself the way into the live prototype */
+figcaption.under .try { font-size: 15px; font-weight: 400; color: var(--ink); text-decoration: underline; text-underline-offset: 0.18em; }
+figcaption.under .try:hover { color: var(--indigo); }
