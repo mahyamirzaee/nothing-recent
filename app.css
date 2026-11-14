@@ -350,3 +350,21 @@ body:not([data-view="entry"]) .entry { opacity: 0; pointer-events: none; }
 
 /* the cover now fades in from the frame */
 body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
+
+/* ---------------- How long a report is worth trusting ----------------
+   The app does not know. She sets it. */
+.trust { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 12px 0 2px; }
+.trust-ask { font-size: 13px; color: var(--soft); }
+.trust-opts { display: flex; align-items: center; gap: 4px; }
+.trust-opts button {
+  min-width: 38px;
+  padding: 5px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--soft);
+  background: #fff;
+}
+.trust-opts button.on { border-color: var(--indigo); color: var(--indigo); background: rgba(179, 173, 216, 0.22); font-weight: 700; }
+.trust-unit { margin-left: 2px; font-size: 12.5px; color: var(--soft); }

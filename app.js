@@ -73,13 +73,17 @@
      stops being on the screen.
      In this demonstration the clock runs fast, so that the fading can be seen:
      one minute passes every TICK milliseconds. */
+  // LIFE is not fixed, because the app cannot know when a report stops being
+  // true. She sets it: 20, 40 or 60 minutes.
   var LIFE = 40;
+  var MAX_LIFE = 60;   // nothing is kept beyond the longest window she can choose
   var TICK = 2000;
   var clock = null;
 
   var list = document.getElementById("sightings");
   var map = document.getElementById("map");
   var empty = document.getElementById("empty");
+  var emptyHead = document.getElementById("empty-head");
 
   var PLACES = ["Enghelab St · near the metro", "Valiasr Sq · west side", "Park entrance", "Bus stop, north side", "Near the bakery"];
 
@@ -94,10 +98,12 @@
   var sightings = makeDemo();
 
   function render() {
+    // only the reports still inside the trusted window are shown
+    var shown = sightings.filter(function (s) { return s.age < LIFE; });
     list.replaceChildren();
     map.querySelectorAll(".dot").forEach(function (d) { d.remove(); });
 
-    sightings.forEach(function (s) {
+    shown.forEach(function (s) {
       var left = 1 - s.age / LIFE;            // 1 = just reported, 0 = gone
       var fade = 0.2 + 0.8 * left;
 
@@ -132,12 +138,25 @@
       map.appendChild(dot);
     });
 
-    empty.hidden = sightings.length > 0;
+    emptyHead.textContent = "Nothing in the last " + LIFE + " minutes.";
+    empty.hidden = shown.length > 0;
   }
+
+  /* She decides how long a report is worth trusting. Changing it can empty
+     the list at once, which is the honest consequence of a shorter trust. */
+  document.getElementById("trust").addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    LIFE = parseInt(b.dataset.life, 10);
+    this.querySelectorAll("button").forEach(function (o) { o.classList.remove("on"); });
+    b.classList.add("on");
+    // nothing is discarded here: a shorter window hides reports, it does not delete them
+    render();
+  });
 
   function tick() {
     sightings.forEach(function (s) { s.age++; });
-    sightings = sightings.filter(function (s) { return s.age < LIFE; });
+    sightings = sightings.filter(function (s) { return s.age < MAX_LIFE; });
     render();
   }
   function startClock() {

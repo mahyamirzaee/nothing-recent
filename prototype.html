@@ -7,7 +7,7 @@
   <meta name="description" content="A stitch counter.">
   <meta name="theme-color" content="#fbfaf8">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="app.css?v=5">
+  <link rel="stylesheet" href="app.css?v=6">
 </head>
 <body data-view="entry">
 
@@ -66,10 +66,21 @@
       <div class="map" id="map" aria-label="Abstract map of reported sightings around you. Demonstration data.">
         <span class="me" aria-hidden="true"></span>
       </div>
+      <!-- The app does not know when a report stops being true. She decides. -->
+      <div class="trust" role="group" aria-label="How long you trust a report">
+        <span class="trust-ask">I trust a report for</span>
+        <span class="trust-opts" id="trust">
+          <button type="button" data-life="20">20</button>
+          <button type="button" data-life="40" class="on">40</button>
+          <button type="button" data-life="60">60</button>
+          <span class="trust-unit">min</span>
+        </span>
+      </div>
+
       <ul class="sightings" id="sightings"></ul>
 
       <div class="empty" id="empty" hidden>
-        <p class="empty-head">Nothing in the last 40 minutes.</p>
+        <p class="empty-head" id="empty-head">Nothing in the last 40 minutes.</p>
         <p>That does not mean the street is clear. It means nobody has said anything.</p>
       </div>
 
@@ -104,6 +115,6 @@
 
 </div>
 
-<script src="app.js?v=7"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
