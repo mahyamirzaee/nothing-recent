@@ -582,3 +582,14 @@ figcaption.under .count { flex: none; }
 }
 .related-plain li { margin-bottom: 0; font-size: 14px; line-height: 1.45; }
 @media (max-width: 760px) { .related-plain ol.refs { grid-template-columns: 1fr; gap: 12px; } }
+
+/* the prototype sits closer to the drawings above it */
+.sheet + .sheet { margin-top: 14px; }
+.sheet + .sheet > .cluster { margin-top: -14px; }
+.carousel + .under { margin-top: 10px; }
+.slidebar { justify-content: flex-start; margin-top: 2px; }
+
+/* on a wide screen the pictures follow each other closely down the right side */
+@media (min-width: 1200px) {
+  .sheet + .sheet > .cluster { margin-top: -200px; }
+}
