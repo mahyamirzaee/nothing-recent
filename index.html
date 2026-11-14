@@ -6,7 +6,7 @@
   <title>Nothing Recent · Mahya Mirzaee</title>
   <meta name="description" content="Nothing Recent: an app and a responsive hood exploring how technology might help women navigate public spaces under compulsory hijab enforcement in Iran.">
   <meta name="theme-color" content="#fbfaf8">
-  <link rel="stylesheet" href="project.css?v=17">
+  <link rel="stylesheet" href="project.css?v=18">
 </head>
 <body>
 <div class="page">
@@ -37,11 +37,11 @@
       <figure>
         <!-- the screens stand in a ring: the next and the previous wait at the edges -->
         <div class="carousel turn" id="slides" tabindex="0" role="button" aria-roledescription="carousel" aria-label="Screen captures of the prototype. Click the right or left side to turn the ring.">
-          <img class="slide on" src="img/app-1-cover.jpg" alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows.">
-          <img class="slide" src="img/app-2-nearby.jpg" alt="Inside: 'Hood closed — it covered you. You did not decide this', above a grid map with fading dots and a list of reports." loading="lazy">
-          <img class="slide" src="img/app-5-held.jpg" alt="The same screen after she refuses: 'Hood open — you are holding it open. It is close.'" loading="lazy">
-          <img class="slide" src="img/app-3-stopped.jpg" alt="The sheet before telling anyone: two chosen names, and the line that their names are on her phone too." loading="lazy">
-          <img class="slide" src="img/app-4-empty.jpg" alt="The empty state: a map with only her own dot, and the line 'Nothing in the last 40 minutes.'" loading="lazy">
+          <img class="slide on" src="img/app-1-cover.jpg" data-cap="The app as it opens: a stitch counter that really counts rows. This is what anyone looking at the phone sees." alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows.">
+          <img class="slide" src="img/app-2-nearby.jpg" data-cap="Inside. The hood has already closed itself: “It covered you. You did not decide this.” Below, reported patrols, fading with age." alt="Inside: 'Hood closed — it covered you. You did not decide this', above a grid map with fading dots and a list of reports." loading="lazy">
+          <img class="slide" src="img/app-5-held.jpg" data-cap="She refuses. The hood is held open while a patrol is still close." alt="The same screen after she refuses: 'Hood open — you are holding it open. It is close.'" loading="lazy">
+          <img class="slide" src="img/app-3-stopped.jpg" data-cap="Before telling anyone: two chosen names, and the reminder that their names are on her phone too." alt="The sheet before telling anyone: two chosen names, and the line that their names are on her phone too." loading="lazy">
+          <img class="slide" src="img/app-4-empty.jpg" data-cap="Nothing in the last 20 minutes — which is not the same as the street being clear." alt="The empty state: a map with only her own dot, and the line 'Nothing in the last 40 minutes.'" loading="lazy">
         </div>
         <div class="slidebar">
           <a class="try" href="prototype.html" target="_blank" rel="noopener">Try the live prototype ↗</a>
@@ -110,7 +110,9 @@
     }
     box.addEventListener('click', function (e) {
       var r = box.getBoundingClientRect();
-      go(e.clientX - r.left < r.width * 0.35 ? -1 : 1);
+      var x = (e.clientX - r.left) / r.width;
+      if (x > 0.28 && x < 0.72) { window.openLarge(box, itemSelector); return; }  // the middle opens big
+      go(x <= 0.28 ? -1 : 1);                                                     // the edges turn the page
     });
     box.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
@@ -144,7 +146,9 @@
 
     box.addEventListener('click', function (e) {
       var r = box.getBoundingClientRect();
-      go(e.clientX - r.left < r.width / 2 ? -1 : 1);
+      var x = (e.clientX - r.left) / r.width;
+      if (x > 0.33 && x < 0.67) { window.openLarge(box, '.slide'); return; }   // the middle one opens big
+      go(x <= 0.33 ? -1 : 1);                                                  // the edges turn the ring
     });
     box.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
@@ -156,57 +160,71 @@
 </script>
 
 <script>
-  // Large view: click (or Enter) on a picture opens it big.
+  // Large view: a picture opens big, and the arrows walk through its own set.
+  // Esc, the × button or a click on the background closes it.
   (function () {
-    var lb = document.createElement("div");
-    lb.className = "lightbox";
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
     lb.hidden = true;
-    lb.setAttribute("role", "dialog");
-    lb.setAttribute("aria-modal", "true");
-    lb.setAttribute("aria-label", "Large view");
-    lb.innerHTML = '<button class="lb-close" type="button" aria-label="Close large view">×</button>' +
-                   '<div class="lb-inner"></div><p class="lb-cap"></p>';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Large view');
+    lb.innerHTML = '<button class="lb-close" type="button" aria-label="Close">×</button>' +
+                   '<button class="lb-arrow lb-prev" type="button" aria-label="Previous picture">‹</button>' +
+                   '<div class="lb-inner"></div>' +
+                   '<button class="lb-arrow lb-next" type="button" aria-label="Next picture">›</button>' +
+                   '<p class="lb-cap"><span class="lb-num"></span><span class="lb-text"></span></p>';
     document.body.appendChild(lb);
-    var inner = lb.querySelector(".lb-inner");
-    var cap = lb.querySelector(".lb-cap");
-    var closeBtn = lb.querySelector(".lb-close");
-    var opener = null;
+    var inner = lb.querySelector('.lb-inner');
+    var capText = lb.querySelector('.lb-text');
+    var capNum = lb.querySelector('.lb-num');
+    var set = [], at = 0, opener = null;
 
-    function open(tile) {
-      var m = tile.querySelector("img, video") || (tile.classList.contains("slides") ? tile.querySelector(".slide.on") : null);
-      if (!m) return;
-      var big = document.createElement("img");
-      big.src = m.getAttribute("src");
-      big.alt = m.getAttribute("alt") || "";
-      big.addEventListener("click", function (e) { e.stopPropagation(); });
+    function show() {
+      var m = set[at];
+      var big = document.createElement('img');
+      big.src = m.getAttribute('src');
+      big.alt = m.getAttribute('alt') || '';
+      big.addEventListener('click', function (e) { e.stopPropagation(); });
       inner.replaceChildren(big);
-      cap.textContent = tile.getAttribute("data-cap") || big.alt;
-      opener = tile;
+      capNum.textContent = (at + 1) + ' / ' + set.length;
+      capText.textContent = m.getAttribute('data-cap') || '';
+    }
+    function step(d) { at = (at + d + set.length) % set.length; show(); }
+    function open(list, index, from) {
+      set = list; at = index; opener = from;
       lb.hidden = false;
-      document.documentElement.style.overflow = "hidden";
-      closeBtn.focus();
+      document.documentElement.style.overflow = 'hidden';
+      show();
+      lb.querySelector('.lb-close').focus();
     }
     function close() {
       if (lb.hidden) return;
       lb.hidden = true;
       inner.replaceChildren();
-      document.documentElement.style.overflow = "";
+      document.documentElement.style.overflow = '';
       if (opener) opener.focus();
     }
 
-    document.querySelectorAll(".zoomable").forEach(function (tile) {
-      tile.tabIndex = 0;
-      tile.setAttribute("role", "button");
-      tile.setAttribute("aria-label", "Open large view");
-      tile.addEventListener("click", function () { open(tile); });
-      tile.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(tile); }
-      });
+    lb.addEventListener('click', close);
+    lb.querySelector('.lb-close').addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+    document.addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
     });
-    lb.addEventListener("click", close);
-    closeBtn.addEventListener("click", function (e) { e.stopPropagation(); close(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+    // the picture in the middle of a ring, or the drawing on top of a stack, opens large
+    window.openLarge = function (box, selector) {
+      var list = [].slice.call(box.querySelectorAll(selector));
+      var cur = box.querySelector(selector + '.on');
+      open(list, Math.max(0, list.indexOf(cur)), box);
+    };
   })();
 </script>
+
 </body>
 </html>

@@ -19,7 +19,7 @@
 :root {
   --paper: #fbfaf8;
   --ink: #141418;
-  --soft: #55555f;
+  --soft: #3f3f4a;
   --indigo: #26307f;
   --lilac: #b3add8;
   --rule: rgba(38, 48, 127, 0.16);
@@ -414,3 +414,18 @@ body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }
 .hood[data-state="held"] .hood-icon { border-color: var(--warn); }
 .hood[data-state="held"] .hood-text b { color: var(--warn); }
 @media (prefers-reduced-motion: reduce) { .hood, .hood-icon { transition: none; } }
+
+/* ---------------- Readability ----------------
+   The screen is read in a street, quickly, and often in bright light.
+   The secondary text was too pale: it is darker and a little larger now. */
+.sightings li { font-size: 15px; }
+.sightings .when { font-size: 13.5px; }
+.sightings .sure { font-size: 12.5px; }
+.hood-text { font-size: 13.5px; }
+.hood-text b { font-size: 14.5px; }
+.hood-text span { color: var(--soft); }
+.trust-ask, .trust-opts button { font-size: 13.5px; }
+.empty { font-size: 14px; }
+.empty-head { font-size: 19px; }
+.stop-text { font-size: 14px; }
+.cover-top, .pattern { font-size: 13.5px; }

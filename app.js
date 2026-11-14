@@ -105,7 +105,7 @@
 
     shown.forEach(function (s) {
       var left = 1 - s.age / LIFE;            // 1 = just reported, 0 = gone
-      var fade = 0.2 + 0.8 * left;
+      var fade = 0.38 + 0.62 * left;   // never fades below readable
 
       var li = document.createElement("li");
       li.style.opacity = fade;
