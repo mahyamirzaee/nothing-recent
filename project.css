@@ -313,3 +313,16 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
 /* a quiet line between the two screens */
 .sheet + .sheet { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--rule); }
 .tensions { margin-top: 0.4em; }
+
+/* the sentence the whole project turns on */
+.pull {
+  margin: 0.35em 0 0.9em;
+  padding-left: 14px;
+  border-left: 2px solid var(--lilac);
+  font-family: var(--head);
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--indigo);
+}
+/* the two closing questions sit together as one block */
+.col .rq { margin-top: 0.6em; }
