@@ -466,3 +466,29 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
 
 /* the ring keeps the edge arrows of the stacks */
 .carousel.turn::before, .carousel.turn::after { z-index: 20; }
+
+/* ---------- The ring, larger and clearer ----------
+   A quiet ground behind the screens, a real frame around each one, and a
+   little more contrast, so the small interface is readable on the page. */
+.carousel {
+  height: clamp(520px, 74vh, 820px);
+  padding: 18px 0;
+  border-radius: 14px;
+  background: #f2f0f6;
+}
+.carousel .slide {
+  border-radius: 12px;
+  outline: 0;
+  border: 1.5px solid rgba(20, 20, 24, 0.45);
+  box-shadow: 0 2px 10px rgba(20, 20, 24, 0.08);
+  filter: contrast(1.06) brightness(1.01);
+}
+.carousel .slide.on {
+  border-color: var(--ink);
+  box-shadow: 0 14px 34px rgba(20, 20, 24, 0.18);
+}
+
+/* on a wide screen the pictures take the rest of the page */
+@media (min-width: 1200px) {
+  .sheet { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); gap: clamp(24px, 2.6vw, 44px); }
+}
