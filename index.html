@@ -6,7 +6,7 @@
   <title>Nothing Recent · Mahya Mirzaee</title>
   <meta name="description" content="Nothing Recent: an app and a responsive hood exploring how technology might help women navigate public spaces under compulsory hijab enforcement in Iran.">
   <meta name="theme-color" content="#fbfaf8">
-  <link rel="stylesheet" href="project.css?v=11">
+  <link rel="stylesheet" href="project.css?v=13">
 </head>
 <body>
 <div class="page">
@@ -75,23 +75,15 @@
 
     <div class="cluster">
       <figure>
-        <div class="frame r32 zoomable paper" data-cap="The hood: automatic, but optional">
-          <img src="img/hood-sketch.webp" alt="Concept drawing: a woman in the street with her phone; the app as a knitting counter and then as a map saying 'patrol nearby in 200 m, 40 min'; the hood closing over her head in three steps, labelled 'automatic. but optional.' and 'protection or control?'" loading="lazy">
+        <!-- two drawings in one stack: hover lifts it, a click turns to the next -->
+        <div class="frame r43 paper stack" id="stack" tabindex="0" role="button" aria-label="Two concept drawings. Click to see the next one.">
+          <img class="stack-item on" src="img/hood-sketch.webp" alt="Concept drawing: a woman in the street with her phone; the app as a knitting counter and then as a map saying 'patrol nearby in 200 m, 40 min'; the hood closing over her head in three steps, labelled 'automatic. but optional.' and 'protection or control?'" loading="lazy">
+          <img class="stack-item" src="img/concept-sheet.webp" alt="Concept sheet: how it works in four steps — you check the map or just keep knitting, you get a warning, the hood covers you before you decide, you get a notification afterwards; a diagram of reports fading over 20, 40 and 60 minutes; and the lines 'a report can be wrong', 'no report doesn't mean it's safe', 'information disappears, the street doesn't'." loading="lazy">
+          <span class="stack-count" id="stack-count">1/2</span>
         </div>
-        <figcaption><span class="note concept">Concept drawing</span> The hood that acts.</figcaption>
+        <figcaption>Concept drawings. Click to turn the page. <a href="img/concept-sheet.webp" target="_blank" rel="noopener">see them large ↗</a></figcaption>
       </figure>
     </div>
-  </section>
-
-  <!-- ===== The whole thing on one sheet, in her own hand ===== -->
-  <section class="board" aria-labelledby="board-title">
-    <h2 class="cluster-title" id="board-title">How it works</h2>
-    <figure>
-      <div class="frame zoomable paper board-frame" data-cap="Nothing Recent · concept sheet">
-        <img src="img/concept-sheet.webp" alt="Concept sheet: the app as a knitting counter and as a map of reported patrols; the hood open and closed; four steps — you check the map or just keep knitting, you get a warning, the hood covers you before you decide, you get a notification afterwards; a diagram of reports fading over 20, 40 and 60 minutes; and the lines 'a report can be wrong', 'no report doesn't mean it's safe', 'information disappears, the street doesn't'." loading="lazy">
-      </div>
-      <figcaption><span class="note concept">Concept drawing</span> “A system that protects by acting before you can.”</figcaption>
-    </figure>
   </section>
 
   <section class="related" aria-labelledby="related-title">
@@ -144,6 +136,27 @@
     if (reduce) { paused = true; pauseBtn.textContent = "▶"; }
     count.textContent = "1/" + slides.length;
     schedule();
+  })();
+</script>
+
+<script>
+  // The stack of drawings: a click (or Enter) turns to the next sheet.
+  (function () {
+    var box = document.getElementById("stack");
+    if (!box) return;
+    var items = box.querySelectorAll(".stack-item");
+    var count = document.getElementById("stack-count");
+    var i = 0;
+    function next() {
+      items[i].classList.remove("on");
+      i = (i + 1) % items.length;
+      items[i].classList.add("on");
+      count.textContent = (i + 1) + "/" + items.length;
+    }
+    box.addEventListener("click", next);
+    box.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); next(); }
+    });
   })();
 </script>
 

@@ -338,3 +338,61 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
 .board-frame { aspect-ratio: 1312 / 1199; width: 100%; max-width: 980px; margin: 0 auto; }
 .board figcaption { max-width: 980px; margin-left: auto; margin-right: auto; }
 @media (max-width: 760px) { .board-frame { max-width: none; } }
+
+/* ================= One voice =================
+   Same size, same colour, no bars down the side of anything.
+   The only emphases left: the title, the small headings, and italic for a question. */
+.col p, .col li { color: var(--ink); font-size: 15px; }
+.lead { font-family: var(--head); font-size: 18px; line-height: 1.45; color: var(--ink); }
+.rq, .pull, .proposal, .intention, .small {
+  margin: 0 0 0.9em;
+  padding: 0;
+  border: 0;
+  font-family: var(--text);
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1.58;
+  color: var(--ink);
+}
+/* the closing questions keep one quiet difference: italic */
+.rq { font-family: var(--head); font-style: italic; font-size: 16.5px; line-height: 1.5; }
+.intention span { display: none; }
+
+/* the text column is wider, and sits closer to the pictures */
+.sheet { grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: clamp(28px, 3.2vw, 56px); }
+@media (max-width: 900px) { .sheet { grid-template-columns: 1fr; } }
+
+/* ---------- The stack: two drawings, one on top of the other ---------- */
+.stack {
+  cursor: pointer;
+  transition: transform 320ms ease, box-shadow 320ms ease;
+  box-shadow: 7px 7px 0 -1px #fff, 7px 7px 0 0 var(--rule);
+}
+.stack:hover, .stack:focus-visible {
+  transform: translate(-3px, -3px);
+  box-shadow: 12px 12px 0 -1px #fff, 12px 12px 0 0 var(--rule);
+}
+.stack .stack-item {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+.stack .stack-item.on { opacity: 1; }
+.stack-count {
+  position: absolute; right: 8px; bottom: 6px;
+  font-size: 11px; color: var(--soft);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) { .stack, .stack .stack-item { transition: none; } }
+
+/* pictures sit in the middle of their column, a little larger, so the page
+   has no empty corridor between the text and the prototype */
+@media (min-width: 1200px) {
+  .sheet > .cluster { justify-items: center; }
+}
+.frame.r32.slides { max-width: 372px; }
+.slidebar { max-width: 372px; }
+.stack { width: 100%; max-width: 560px; }
