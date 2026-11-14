@@ -319,3 +319,34 @@ body:not([data-view="stop"]) .sheet-stop .stop-body { transform: translateY(100%
   color: var(--indigo);
 }
 .map-note { line-height: 1.45; }
+
+/* ---------------- The frame: said once, before the prototype ----------------
+   The honest words live here and on the project page, not inside the app.
+   Inside, the artefact is allowed to be coherent. */
+.entry { z-index: 4; justify-content: center; padding: 26px 24px 30px; }
+body:not([data-view="entry"]) .entry { opacity: 0; pointer-events: none; }
+.entry-kicker { margin: 0 0 4px; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
+.entry-title { margin: 0; font-family: var(--head); font-size: 32px; font-weight: 400; line-height: 1.1; }
+.entry-thread {
+  width: 110px; height: 3px; margin: 14px 0 18px;
+  background: linear-gradient(90deg, var(--indigo) 0 62%, var(--lilac) 62% 100%);
+  opacity: 0.85;
+}
+.entry-body > p { margin: 0 0 12px; font-size: 16px; line-height: 1.5; }
+.entry-note { font-size: 13.5px; line-height: 1.55; color: var(--soft); }
+.entry-go {
+  width: 100%;
+  margin: 18px 0 0;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--indigo);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.entry-go:active { opacity: 0.85; }
+.entry-foot { margin: 14px 0 0; font-size: 12px; text-align: center; color: var(--soft); }
+.entry-foot a { color: var(--indigo); }
+
+/* the cover now fades in from the frame */
+body[data-view="entry"] .cover, body[data-view="entry"] .inside { opacity: 0; }

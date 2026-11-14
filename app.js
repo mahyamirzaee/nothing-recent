@@ -6,7 +6,14 @@
 
   var body = document.body;
   var inside = document.getElementById("inside");
-  var hint = document.getElementById("hint");
+
+  /* ---------- The frame: the honest words are said once, here, and then
+     the prototype is left to speak for itself. ---------- */
+  var entry = document.getElementById("entry");
+  document.getElementById("entry-go").onclick = function () {
+    body.setAttribute("data-view", "cover");
+    setTimeout(function () { entry.hidden = true; }, 400);
+  };
 
   /* ---------- The cover: a working row counter ---------- */
   var n = 0;
@@ -45,7 +52,6 @@
     void inside.offsetWidth;
     body.setAttribute("data-view", "inside");
     startClock();
-    if (hint) hint.hidden = true;
   }
   function coverUp() {
     body.setAttribute("data-view", "cover");
@@ -144,16 +150,29 @@
   /* ---------- Report: it adds a fresh sighting here, and goes nowhere ---------- */
   var report = document.getElementById("report");
   report.onclick = function () {
-    sightings.unshift({
-      where: PLACES[Math.floor(Math.random() * PLACES.length)],
-      age: 0,
-      reports: 1,
-      x: 20 + Math.round(Math.random() * 60),
-      y: 20 + Math.round(Math.random() * 60)
+    // a place that is not already on the list, so two rows never name the same corner
+    var free = PLACES.filter(function (p) {
+      return !sightings.some(function (s) { return s.where === p; });
     });
+    if (free.length) {
+      sightings.unshift({
+        where: free[Math.floor(Math.random() * free.length)],
+        age: 0,
+        reports: 1,
+        x: 20 + Math.round(Math.random() * 60),
+        y: 20 + Math.round(Math.random() * 60)
+      });
+    } else {
+      // every corner is already on the list: this report confirms one of them,
+      // which makes it both surer and younger
+      var s = sightings[Math.floor(Math.random() * sightings.length)];
+      s.reports++;
+      s.age = 0;
+      sightings = [s].concat(sightings.filter(function (o) { return o !== s; }));
+    }
     render();
     report.dataset.done = "1";
-    report.textContent = "Added here · nothing was sent";
+    report.textContent = "Reported · just now";
     setTimeout(function () {
       report.dataset.done = "";
       report.textContent = "Report a sighting here";
@@ -209,7 +228,7 @@
     var t = new Date();
     var hh = String(t.getHours()).padStart(2, "0");
     var mm = String(t.getMinutes()).padStart(2, "0");
-    holdLabel.textContent = "Nothing was sent · " + hh + ":" + mm;
+    holdLabel.textContent = "Sent · " + hh + ":" + mm;
     // The app hides itself, because the next thing that happens is the phone being looked at.
     setTimeout(function () { closeStop(); coverUp(); }, 1600);
   }
