@@ -1,0 +1,321 @@
+/* Phone prototype — two layers:
+   .cover  = ROWS, an ordinary stitch counter (what anyone looking at the phone sees)
+   .inside = the real app (sightings), reached by a long press on the counter number
+   Demonstration only. No real data, no network, no storage. */
+
+@font-face {
+  font-family: "Literata";
+  src: url("fonts/Literata.woff2") format("woff2");
+  font-weight: 200 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("fonts/AtkinsonHyperlegibleNext.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fbfaf8;
+  --ink: #141418;
+  --soft: #55555f;
+  --indigo: #26307f;
+  --lilac: #b3add8;
+  --rule: rgba(38, 48, 127, 0.16);
+  --warn: #8a5a2b;
+  --head: "Literata", Georgia, serif;
+  --text: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+
+/* the phone screen */
+.phone {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--paper);
+}
+@media (min-width: 520px) {
+  body { background: #e9e6ee; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .phone { height: min(880px, calc(100dvh - 48px)); min-height: 0; border-radius: 26px; box-shadow: 0 18px 50px rgba(20, 20, 24, 0.22); }
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  transition: opacity 260ms ease;
+}
+.layer[hidden] { display: none; }
+body:not([data-view="cover"]) .cover { opacity: 0; pointer-events: none; }
+body[data-view="cover"] .inside { opacity: 0; pointer-events: none; }
+.inside { z-index: 2; }
+
+/* ---------------- Cover: ROWS, a stitch counter ---------------- */
+.cover { padding: 22px 22px 26px; text-align: center; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--soft); }
+.cover-top b { font-family: var(--head); font-size: 15px; font-weight: 600; letter-spacing: 0.06em; color: var(--ink); }
+
+.pattern { margin-top: 26px; font-size: 13px; color: var(--soft); }
+.pattern strong { display: block; margin-top: 2px; font-family: var(--head); font-size: 17px; font-weight: 500; color: var(--ink); }
+
+/* the big number is also the hidden way in: press and hold it */
+.counter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.count-num {
+  font-family: var(--head);
+  font-size: 96px;
+  line-height: 1;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  padding: 10px 24px;
+  border-radius: 14px;
+  transition: background 1100ms linear, color 260ms ease;
+}
+.count-num.holding { background: rgba(179, 173, 216, 0.5); }
+.count-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--soft); }
+
+.rowbar { display: flex; gap: 12px; }
+.rowbar button {
+  flex: 1;
+  padding: 18px 0;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--indigo);
+  background: #fff;
+}
+.rowbar button:active { background: rgba(179, 173, 216, 0.3); }
+.rowbar .plus { flex: 2; }
+.cover-reset { margin-top: 14px; font-size: 13px; color: var(--soft); text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* a quiet row of knitted stitches, so the cover looks like a real little app */
+.stitches { height: 16px; margin-top: 18px; opacity: 0.5;
+  background: repeating-linear-gradient(90deg, var(--lilac) 0 7px, transparent 7px 14px) 0 50% / 100% 3px no-repeat; }
+
+/* ---------------- Inside: the real app ---------------- */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.bar h1 { margin: 0; font-family: var(--text); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.bar .cover-btn { padding: 8px 12px; border: 1px solid var(--rule); border-radius: 999px; font-size: 12.5px; color: var(--indigo); }
+
+.inside-body { flex: 1; overflow-y: auto; padding: 16px 18px 0; }
+
+/* abstract map: streets as warp and weft, not a real map */
+.map {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg, rgba(38, 48, 127, 0.10) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(0deg, rgba(38, 48, 127, 0.10) 0 1px, transparent 1px 34px),
+    #fff;
+}
+.me {
+  position: absolute; left: 50%; top: 50%;
+  width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  border-radius: 50%; background: var(--indigo);
+  box-shadow: 0 0 0 6px rgba(38, 48, 127, 0.14);
+}
+.dot {
+  position: absolute;
+  width: 16px; height: 16px; margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: rgba(138, 90, 43, 0.85);
+  box-shadow: 0 0 0 0 rgba(138, 90, 43, 0.45);
+  animation: pulse 2.6s ease-out infinite;
+}
+.dot.faint { background: rgba(138, 90, 43, 0.35); animation: none; }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(138, 90, 43, 0.4); }
+  70%  { box-shadow: 0 0 0 16px rgba(138, 90, 43, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(138, 90, 43, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+.map-note { margin: 6px 0 0; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warn); }
+
+.sightings { list-style: none; margin: 14px 0 0; padding: 0; }
+.sightings li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; }
+.sightings .when { color: var(--soft); font-size: 13px; white-space: nowrap; }
+.sightings .sure { display: block; font-size: 12px; color: var(--soft); }
+
+.report {
+  width: 100%;
+  margin: 18px 0 10px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--indigo);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.report:active { opacity: 0.85; }
+.report[data-done="1"] { background: rgba(38, 48, 127, 0.3); }
+
+.disclaimer {
+  margin: 4px 0 18px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--lilac);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--soft);
+}
+.disclaimer b { display: block; color: var(--warn); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* the hint that appears on the cover the first time only */
+.hint {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 10px 18px;
+  background: rgba(38, 48, 127, 0.92);
+  color: #fff;
+  font-size: 12.5px;
+  text-align: center;
+  transition: opacity 500ms ease;
+}
+.hint[hidden] { display: none; }
+
+/* ---------------- "I am stopped" ---------------- */
+.stop-open {
+  width: 100%;
+  margin: 0 0 16px;
+  padding: 15px;
+  border: 1px solid rgba(138, 90, 43, 0.5);
+  border-radius: 12px;
+  color: var(--warn);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.stop-open:active { background: rgba(138, 90, 43, 0.08); }
+
+.sheet-stop { z-index: 3; justify-content: flex-end; background: rgba(20, 20, 24, 0.55); }
+body[data-view="stop"] .inside { opacity: 1; }
+.sheet-stop .stop-body {
+  padding: 24px 20px 26px;
+  border-radius: 18px 18px 0 0;
+  background: var(--paper);
+  transform: translateY(0);
+  transition: transform 300ms ease;
+}
+body:not([data-view="stop"]) .sheet-stop { opacity: 0; pointer-events: none; }
+body:not([data-view="stop"]) .sheet-stop .stop-body { transform: translateY(100%); }
+@media (prefers-reduced-motion: reduce) { .sheet-stop .stop-body { transition: none; } }
+
+.stop-kicker { margin: 0 0 4px; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
+.stop-head { margin: 0 0 14px; font-family: var(--head); font-size: 21px; font-weight: 400; line-height: 1.3; color: var(--indigo); }
+
+.who { list-style: none; margin: 0 0 14px; padding: 0; }
+.who li { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.who-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lilac); flex: none; }
+.who-note { margin-left: auto; font-size: 12px; color: var(--soft); }
+
+.stop-text { margin: 0 0 10px; font-size: 13.5px; line-height: 1.55; color: var(--soft); }
+.stop-cost { padding-left: 12px; border-left: 2px solid rgba(138, 90, 43, 0.5); color: var(--warn); }
+
+/* hold to send: the bar fills while the finger stays down */
+.hold {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 16px 0 10px;
+  padding: 17px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(138, 90, 43, 0.12);
+  color: var(--warn);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.hold-fill {
+  position: absolute;
+  inset: 0 100% 0 0;
+  background: var(--warn);
+  transition: right 0ms linear;
+}
+.hold.holding .hold-fill { right: 0; transition: right 2000ms linear; }
+.hold.holding { color: #fff; }
+.hold-label { position: relative; }
+.hold[data-sent="1"] { background: var(--warn); color: #fff; }
+
+.stop-cancel { display: block; width: 100%; padding: 10px; font-size: 14px; color: var(--soft); text-decoration: underline; text-underline-offset: 0.2em; }
+.stop-demo { margin: 10px 0 0; font-size: 11.5px; letter-spacing: 0.04em; text-align: center; color: var(--soft); }
+
+/* ---------------- Decay: a sighting fades for its whole life ---------------- */
+.sightings li { transition: opacity 600ms ease; }
+.sightings .when { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+
+/* the thin line under the time: how much life is left */
+.life {
+  display: block;
+  width: 54px;
+  height: 2px;
+  background: var(--rule);
+}
+.life::before {
+  content: "";
+  display: block;
+  width: var(--left, 100%);
+  height: 100%;
+  background: var(--warn);
+  transition: width 600ms linear;
+}
+
+/* nothing recent: the honest empty screen */
+.empty {
+  margin: 16px 0 0;
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--rule);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--soft);
+}
+.empty[hidden] { display: none; }
+.empty p { margin: 0; }
+.empty-head {
+  margin-bottom: 6px !important;
+  font-family: var(--head);
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--indigo);
+}
+.map-note { line-height: 1.45; }

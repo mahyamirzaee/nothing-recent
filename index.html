@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nothing Recent · Mahya Mirzaee</title>
+  <meta name="description" content="Nothing Recent: a speculative HCI artefact. A warning app for women under compulsory hijab that admits, on every screen, that it cannot keep anyone safe.">
+  <meta name="theme-color" content="#fbfaf8">
+  <link rel="stylesheet" href="project.css?v=6">
+</head>
+<body>
+<div class="page">
+
+  <nav class="top" aria-label="Site">
+    <a href="https://mahyamirzaee.github.io/">‹ back</a>
+  </nav>
+
+  <main>
+  <!-- ===== Screen 1: proposition, research question, the prototype ===== -->
+  <section class="sheet" aria-labelledby="title">
+    <div class="col">
+      <h1 id="title">Nothing Recent</h1>
+      <p class="sub">Speculative HCI · Research through Design · 2026</p>
+      <div class="thread" aria-hidden="true"></div>
+
+      <p class="lead">A warning app for women under compulsory hijab that admits, on every screen, that it cannot keep anyone safe.</p>
+      <p>In Iran, compulsory hijab is enforced in the street by patrols. Apps that share their whereabouts are not hypothetical: Gershad crowdsourced them on a map in 2016. This prototype takes that familiar form — reported sightings, nearby, minutes old — and designs against its central promise. It opens as a knitting row counter, because the phone is the thing that gets searched.</p>
+
+      <h2>Research question</h2>
+      <p class="rq">How might an interface designed for protection acknowledge, in its own form, that it cannot protect the person using it?</p>
+
+      <h2>The interaction</h2>
+      <ol class="stages">
+        <li><b>01 · Cover.</b> The app opens as ROWS, a stitch counter that genuinely counts rows. This is what anyone holding the phone sees. One tap, locking the screen or switching apps returns to it.</li>
+        <li><b>02 · Open.</b> A long press of 1.2 seconds on the row number fades the counter away: sightings nearby, how long ago, how many people said so.</li>
+        <li><b>03 · Fade.</b> Every sighting dies after forty minutes, fading the whole way. When they are gone the screen says so, and says that this is not the same as the street being clear.</li>
+      </ol>
+      <p class="small">A working browser prototype. Every sighting in it is invented: there is no location, no account and no server, nothing is stored and nothing is sent. It senses nothing about the street, and it protects no one.</p>
+    </div>
+
+    <div class="cluster">
+      <figure>
+        <div class="frame r32 slides" id="slides" aria-roledescription="slideshow" aria-label="Screen captures of the prototype">
+          <img class="slide on" src="img/app-1-cover.jpg" alt="The app as it opens: ROWS, a plain stitch counter showing 14 rows, with plus and minus buttons.">
+          <img class="slide" src="img/app-2-nearby.jpg" alt="Inside the app: an abstract grid map with four fading dots, and a list of sightings from 4 to 37 minutes old, each dimmer than the last." loading="lazy">
+          <img class="slide" src="img/app-3-stopped.jpg" alt="The sheet that opens before telling anyone: two chosen names, and the line that their names are on your phone too." loading="lazy">
+          <img class="slide" src="img/app-4-empty.jpg" alt="The empty state: a map with only your own dot, and the line 'Nothing in the last 40 minutes.'" loading="lazy">
+        </div>
+        <div class="slidebar">
+          <a class="try" href="prototype.html" target="_blank" rel="noopener">Try the live prototype ↗</a>
+          <div class="controls">
+            <button type="button" id="slide-pause" aria-label="Pause slideshow">II</button>
+            <button type="button" id="slide-prev" aria-label="Previous image">‹</button>
+            <span class="count" id="slide-count">1/4</span>
+            <button type="button" id="slide-next" aria-label="Next image">›</button>
+          </div>
+        </div>
+      </figure>
+
+      <div class="in-use">
+        <h2 class="cluster-title">Prototype in use</h2>
+        <div class="mosaic">
+          <div class="tile t-a placeholder">Photo or video</div>
+          <div class="tile t-b placeholder">Video</div>
+          <div class="tile t-c placeholder">Video</div>
+        </div>
+        <p class="mosaic-caption"><span class="note">Documentation to come</span> Staged, and labelled as staged.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Central statement ===== -->
+  <section class="statement" aria-labelledby="statement-label">
+    <p class="statement-label" id="statement-label">Situated context</p>
+    <blockquote>What if a safety app said plainly that it cannot keep you safe?</blockquote>
+  </section>
+
+  <!-- ===== Screen 2: context, questions, reflection, future direction ===== -->
+  <section class="sheet" aria-labelledby="context">
+    <div class="col">
+      <h2 id="context">Avoidance as a daily routine</h2>
+      <p>Compulsory hijab is enforced not only in law but in ordinary places: a metro entrance, a square, the gate of a park. Avoiding enforcement becomes routine — looking ahead, guessing, taking another street. The prototype places itself inside that routine, and inside the phone, which is also the object that can be taken and read.</p>
+
+      <h2>Questions</h2>
+      <ol class="qs">
+        <li><b>Promise.</b> What does an interface owe the person relying on it, when it cannot deliver the safety its form implies?</li>
+        <li><b>Evidence.</b> A tool made for protection is also a record of intent. Who carries the risk the tool itself creates?</li>
+        <li><b>Silence.</b> An empty screen reads as "clear". How should an interface speak about what it does not know?</li>
+      </ol>
+
+      <h2>Reflection</h2>
+      <p>Nothing Recent is an exploratory design artefact, not a validated intervention and not a safety tool. There is no study behind it and no claim that it helps. It does not speak for women living in Iran; it is a design question asked from my own position, as an Iranian designer working in Germany.</p>
+    </div>
+
+    <div class="cluster">
+      <div class="col future">
+        <h2>Future direction · Carrying nothing</h2>
+        <p>A further iteration would move away from the device altogether, and ask what a warning could be if it left no record: something held in cloth, in a gesture, in an arrangement between people, that cannot be opened by a stranger holding your phone. The digital version would then become the thing it is already pretending not to be — a trace.</p>
+        <p class="intention"><span>Design intention</span>Could care travel between women without leaving a record that can be used against them?</p>
+      </div>
+      <figure>
+        <div class="frame r43 zoomable placeholder" data-cap="Concept illustration">Concept illustration</div>
+        <figcaption><span class="note concept">Speculative</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="related" aria-labelledby="related-title">
+    <h2 class="cluster-title" id="related-title">Related work</h2>
+    <ol>
+      <li>Gershad (2016) · crowdsourced mapping of guidance patrols in Tehran</li>
+      <li>Dunne &amp; Raby, <i>Speculative Everything</i> (2013) · design as critique rather than solution</li>
+      <li>[Third reference to add] · HCI and interfaces under surveillance</li>
+    </ol>
+    <p class="small">References still to be checked and linked.</p>
+  </section>
+  </main>
+
+  <footer class="foot">
+    <span>Implemented: browser prototype with invented data. Proposed: a version that carries no record. Documentation: screen captures of the prototype, not a user study.</span>
+    <span>Mahya Mirzaee, 2026</span>
+  </footer>
+</div>
+
+<script>
+  // Slideshow: the next screen capture every 6 seconds.
+  // Pauses on hover and with the II button; stays still for visitors who reduce motion.
+  (function () {
+    var box = document.getElementById("slides");
+    var slides = box.querySelectorAll(".slide");
+    var count = document.getElementById("slide-count");
+    var pauseBtn = document.getElementById("slide-pause");
+    var i = 0, timer = null, paused = false, hovering = false;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function go(n) {
+      slides[i].classList.remove("on");
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add("on");
+      count.textContent = (i + 1) + "/" + slides.length;
+    }
+    function schedule() {
+      clearInterval(timer);
+      if (!paused && !hovering) timer = setInterval(function () { go(i + 1); }, 6000);
+    }
+    document.getElementById("slide-next").onclick = function () { go(i + 1); schedule(); };
+    document.getElementById("slide-prev").onclick = function () { go(i - 1); schedule(); };
+    pauseBtn.onclick = function () {
+      paused = !paused;
+      pauseBtn.textContent = paused ? "▶" : "II";
+      pauseBtn.setAttribute("aria-label", paused ? "Play slideshow" : "Pause slideshow");
+      schedule();
+    };
+    box.addEventListener("mouseenter", function () { hovering = true; schedule(); });
+    box.addEventListener("mouseleave", function () { hovering = false; schedule(); });
+    if (reduce) { paused = true; pauseBtn.textContent = "▶"; }
+    count.textContent = "1/" + slides.length;
+    schedule();
+  })();
+</script>
+
+<script>
+  // Large view: click (or Enter) on a picture opens it big.
+  // Close with a click anywhere, the × button, or Esc. Empty placeholders do nothing.
+  (function () {
+    var lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.hidden = true;
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Large view");
+    lb.innerHTML = '<button class="lb-close" type="button" aria-label="Close large view">×</button>' +
+                   '<div class="lb-inner"></div><p class="lb-cap"></p>';
+    document.body.appendChild(lb);
+    var inner = lb.querySelector(".lb-inner");
+    var cap = lb.querySelector(".lb-cap");
+    var closeBtn = lb.querySelector(".lb-close");
+    var opener = null;
+
+    function open(tile) {
+      var m = tile.querySelector("img, video") || (tile.classList.contains("slides") ? tile.querySelector(".slide.on") : null);
+      if (!m) return;
+      var big = document.createElement("img");
+      big.src = m.getAttribute("src");
+      big.alt = m.getAttribute("alt") || "";
+      big.addEventListener("click", function (e) { e.stopPropagation(); });
+      inner.replaceChildren(big);
+      cap.textContent = tile.getAttribute("data-cap") || big.alt;
+      opener = tile;
+      lb.hidden = false;
+      document.documentElement.style.overflow = "hidden";
+      closeBtn.focus();
+    }
+    function close() {
+      if (lb.hidden) return;
+      lb.hidden = true;
+      inner.replaceChildren();
+      document.documentElement.style.overflow = "";
+      if (opener) opener.focus();
+    }
+
+    document.querySelectorAll(".zoomable").forEach(function (tile) {
+      tile.tabIndex = 0;
+      tile.setAttribute("role", "button");
+      tile.setAttribute("aria-label", "Open large view");
+      tile.addEventListener("click", function () { open(tile); });
+      tile.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(tile); }
+      });
+    });
+    lb.addEventListener("click", close);
+    closeBtn.addEventListener("click", function (e) { e.stopPropagation(); close(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+  })();
+</script>
+</body>
+</html>

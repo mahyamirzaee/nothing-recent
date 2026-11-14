@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ROWS</title>
+  <meta name="description" content="A stitch counter.">
+  <meta name="theme-color" content="#fbfaf8">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="app.css?v=4">
+</head>
+<body data-view="cover">
+
+<div class="phone">
+
+  <!-- ============ The cover: an ordinary stitch counter ============ -->
+  <section class="layer cover" aria-label="Row counter">
+    <div class="cover-top">
+      <b>ROWS</b>
+      <span>Stitch counter</span>
+    </div>
+
+    <p class="pattern">Current pattern<strong>Grey scarf · 2x2 rib</strong></p>
+
+    <div class="counter">
+      <!-- press and hold this number for 1.2 seconds to open the inside -->
+      <button class="count-num" id="count" aria-label="Row count. Press and hold to open settings.">0</button>
+      <span class="count-label">rows</span>
+    </div>
+
+    <div class="rowbar">
+      <button type="button" id="minus" aria-label="One row back">−</button>
+      <button type="button" id="plus" class="plus" aria-label="Add one row">+</button>
+    </div>
+    <button type="button" class="cover-reset" id="reset">Reset</button>
+    <div class="stitches" aria-hidden="true"></div>
+
+    <p class="hint" id="hint">Prototype: press and hold the number for 1.2 s</p>
+  </section>
+
+  <!-- ============ Inside: the real app ============ -->
+  <section class="layer inside" id="inside" aria-label="Nearby sightings" hidden>
+    <div class="bar">
+      <h1>Nearby</h1>
+      <button type="button" class="cover-btn" id="to-cover">Cover</button>
+    </div>
+
+    <div class="inside-body">
+      <div class="map" id="map" aria-label="Abstract map of reported sightings around you. Demonstration data.">
+        <span class="me" aria-hidden="true"></span>
+      </div>
+      <p class="map-note">Demonstration data · not real locations · time runs fast here: one minute every two seconds</p>
+
+      <ul class="sightings" id="sightings"></ul>
+
+      <div class="empty" id="empty" hidden>
+        <p class="empty-head">Nothing in the last 40 minutes.</p>
+        <p>That does not mean the street is clear. It means nobody has said anything.</p>
+      </div>
+
+      <button type="button" class="report" id="report">Report a sighting here</button>
+      <button type="button" class="stop-open" id="stop-open">I am stopped</button>
+
+      <p class="disclaimer">
+        <b>This prototype protects no one</b>
+        It is a design artefact, not a safety tool. Nothing here is real: there is
+        no location, no account, no server. Nothing is stored and nothing is sent.
+        A phone can be searched, and an app like this would itself be evidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ "I am stopped": a sheet over the inside ============ -->
+  <section class="layer sheet-stop" id="sheet-stop" aria-label="Tell two people you are stopped" hidden>
+    <div class="stop-body">
+      <p class="stop-kicker">If you hold the button</p>
+      <h2 class="stop-head">Two people will know you were stopped, and where.</h2>
+
+      <ul class="who">
+        <li><span class="who-dot" aria-hidden="true"></span>Sara<span class="who-note">chosen by you</span></li>
+        <li><span class="who-dot" aria-hidden="true"></span>Maman<span class="who-note">chosen by you</span></li>
+      </ul>
+
+      <p class="stop-text">They receive the time and the last place. Nothing else. There is
+        no reply, and no way to say you are all right.</p>
+      <p class="stop-text stop-cost">Their names are on your phone. If it is searched, they are
+        in it too.</p>
+
+      <button type="button" class="hold" id="hold">
+        <span class="hold-fill" aria-hidden="true"></span>
+        <span class="hold-label">Hold to tell them</span>
+      </button>
+      <button type="button" class="stop-cancel" id="stop-cancel">Not now</button>
+      <p class="stop-demo">Prototype. Nothing is sent, no message leaves this phone.</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="app.js?v=4"></script>
+</body>
+</html>
