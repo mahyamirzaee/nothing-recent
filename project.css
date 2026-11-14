@@ -269,3 +269,27 @@ figcaption, .mosaic-caption { margin: 8px 0 0; font-size: 12.5px; line-height: 1
   .sheet > .cluster > .in-use { grid-column: 2; }
   .in-use .mosaic { grid-auto-rows: 50px; }
 }
+
+/* ---------- Tensions: word pairs held apart by one thread ----------
+   Following the idea of collecting tensions rather than resolving them. */
+.tension-intro { margin: 0.35em 0 1em; font-size: 13.5px; color: var(--soft); }
+.tensions { list-style: none; margin: 0; padding: 0; }
+.tensions li { margin-bottom: 1.05em; }
+.pair { display: flex; align-items: center; gap: 10px; }
+.pair b {
+  font-family: var(--head);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--indigo);
+  white-space: nowrap;
+}
+/* the thread between the two words: indigo, with a lilac stretch */
+.pair i {
+  flex: 1;
+  height: 3px;
+  min-width: 26px;
+  background: linear-gradient(90deg, var(--indigo) 0 58%, var(--lilac) 58% 100%);
+  opacity: 0.6;
+}
+.say { display: block; margin-top: 2px; font-size: 13.5px; line-height: 1.5; color: var(--soft); }
